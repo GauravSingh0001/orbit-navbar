@@ -1,0 +1,224 @@
+/*! orbit-navbar | (c) GauravSingh001 | MIT */
+:root {
+  --pod-h: 64px;
+  --logo-size: 56px;
+  --pod-pad-cap: 22px;
+  --pod-pad-notch: 40px;
+  --link-gap: 2px;
+  --link-pad-x: 14px;
+  --spring: cubic-bezier(0.22, 1.4, 0.36, 1);
+  --retract: cubic-bezier(0.4, 0, 1, 1);
+  --emerge: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-host {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 999;
+  pointer-events: none;
+  --glass-blur: blur(20px) saturate(180%);
+  --glass-inner: inset 0 1px 1px 0 rgba(255, 255, 255, 0.45);
+  --glass-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.03) 100%);
+  --glass-bg: rgba(226, 226, 224, 0.18);
+  --glass-edge: rgba(43, 117, 116, 0.45);
+  --nav-text: #0E2931;
+  --nav-text-hover: #12484C;
+  --nav-accent: #861211;
+  --nav-link-hover-bg: rgba(43, 117, 116, 0.14);
+}
+
+.nav-group {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: 1fr 0 1fr;
+  align-items: center;
+  width: max-content;
+  max-width: calc(100vw - 16px);
+  pointer-events: auto;
+}
+
+.nav-pod {
+  position: relative;
+  height: var(--pod-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  will-change: transform, opacity, filter;
+  transition: opacity 0.55s var(--emerge), transform 0.65s var(--spring), filter 0.55s var(--emerge);
+}
+
+.nav-pod--left {
+  padding: 0 var(--pod-pad-notch) 0 var(--pod-pad-cap);
+  transform-origin: right center;
+}
+
+.nav-pod--right {
+  padding: 0 var(--pod-pad-cap) 0 var(--pod-pad-notch);
+  transform-origin: left center;
+  transition-delay: 0.06s;
+}
+
+.nav-pod__glass {
+  position: absolute;
+  inset: 0;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-inner);
+  pointer-events: none;
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.nav-pod__glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--glass-sheen);
+}
+
+.nav-pod__edge {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.nav-pod__edge path {
+  fill: none;
+  stroke: var(--glass-edge);
+  stroke-width: 1;
+  transition: stroke 0.5s ease;
+}
+
+.nav-group--scrolled .nav-pod {
+  opacity: 0;
+  filter: blur(6px);
+  pointer-events: none;
+  transition: opacity 0.3s var(--retract), transform 0.38s var(--retract), filter 0.3s var(--retract);
+}
+
+.nav-group--scrolled .nav-pod--left {
+  transform: translateX(40%) scale(0.88);
+}
+
+.nav-group--scrolled .nav-pod--right {
+  transform: translateX(-40%) scale(0.88);
+  transition-delay: 0.04s;
+}
+
+.nav-pod__list {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--link-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.nav-pod__list a {
+  display: block;
+  padding: 8px var(--link-pad-x);
+  border-radius: 999px;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  color: var(--nav-text);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.nav-pod__list a:hover {
+  background: var(--nav-link-hover-bg);
+  color: var(--nav-text-hover);
+}
+
+.nav-pod__list a:focus-visible,
+.nav-logo-link:focus-visible {
+  outline: 2px solid var(--nav-accent);
+  outline-offset: 2px;
+}
+
+.nav-center {
+  position: relative;
+  width: 0;
+  height: var(--logo-size);
+  z-index: 2;
+}
+
+.nav-logo-link {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--logo-size);
+  height: var(--logo-size);
+  transform: translate(-50%, -50%);
+  display: block;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: 0 0 0 1px var(--glass-edge), var(--glass-inner), 0 6px 20px rgba(0, 0, 0, 0.16);
+  transition: background 0.5s ease, box-shadow 0.65s var(--emerge), transform 0.4s var(--spring);
+}
+
+.nav-logo-link:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.nav-group--scrolled .nav-logo-link {
+  box-shadow: 0 0 0 1.5px var(--nav-accent), var(--glass-inner), 0 8px 24px rgba(0, 0, 0, 0.2);
+  transition: background 0.5s ease, box-shadow 0.3s var(--retract), transform 0.4s var(--spring);
+}
+
+.nav-logo-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.65s var(--spring);
+}
+
+.nav-group--scrolled .nav-logo-content--rotate {
+  transform: rotate(360deg);
+  transition: transform 0.32s var(--retract);
+}
+
+.nav-logo-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.nav-logo-content svg {
+  width: 60%;
+  height: 60%;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --pod-pad-cap: 14px;
+    --pod-pad-notch: 36px;
+    --link-pad-x: 8px;
+  }
+  .nav-pod__list a {
+    font-size: 0.78rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-pod, .nav-logo-content, .nav-logo-link {
+    transition: none;
+  }
+}

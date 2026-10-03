@@ -1,0 +1,76 @@
+{
+  "name": "@gskit/orbit-navbar",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A floating split-arc glassmorphism React navbar with spring-animation pods, a rotating circular logo slot, and a built-in palette system.",
+  "keywords": [
+    "react",
+    "navbar",
+    "navigation",
+    "glassmorphism",
+    "animation",
+    "component",
+    "scroll",
+    "floating",
+    "glass"
+  ],
+  "license": "MIT",
+  "author": "Gaurav Singh <gauravsingh112003@gmail.com> (https://github.com/GauravSingh0001)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GauravSingh0001/orbit-navbar.git"
+  },
+  "homepage": "https://github.com/GauravSingh0001/orbit-navbar#readme",
+  "type": "module",
+
+  "main":   "./dist/orbit-navbar.umd.cjs",
+  "module": "./dist/orbit-navbar.js",
+  "types":  "./dist/index.d.ts",
+
+  "exports": {
+    ".": {
+      "import":  "./dist/orbit-navbar.js",
+      "require": "./dist/orbit-navbar.umd.cjs",
+      "types":   "./dist/index.d.ts"
+    },
+    "./styles": "./dist/orbit-navbar.css"
+  },
+
+  "files": [
+    "dist"
+  ],
+
+  "sideEffects": [
+    "./dist/orbit-navbar.css"
+  ],
+
+  "scripts": {
+    "dev":       "vite",
+    "build":     "vite build",
+    "build:lib":       "vite build --config vite.lib.config.js && powershell Copy-Item src/index.d.ts dist/index.d.ts",
+    "prepublishOnly":  "npm run build:lib",
+    "lint":            "eslint .",
+    "preview":         "vite preview"
+  },
+
+  "peerDependencies": {
+    "react":     ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+
+  "devDependencies": {
+    "@eslint/js":                 "^10.0.1",
+    "@types/react":               "^19.2.18",
+    "@types/react-dom":           "^19.2.7",
+    "@vitejs/plugin-react":       "^6.1.1",
+    "eslint":                     "^10.10.0",
+    "eslint-plugin-react-hooks":  "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.6",
+    "globals":                    "^17.12.0",
+    "react":                      "^19.2.8",
+    "react-dom":                  "^19.2.8",
+    "vite":                       "^8.3.0"
+  }
+}
