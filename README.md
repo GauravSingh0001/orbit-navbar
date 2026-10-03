@@ -1,23 +1,23 @@
 # @gskit/orbit-navbar
 
-A floating split-arc glassmorphism React navbar with spring-animated pods, a rotating circular logo slot, and a full palette system.
+A floating split-arc glassmorphism React navbar with spring-animated pods, a rotating circular logo slot, and a built-in palette system.
 
 [![npm](https://img.shields.io/npm/v/@gskit/orbit-navbar)](https://www.npmjs.com/package/@gskit/orbit-navbar)
-[![license](https://img.shields.io/npm/l/@gskit/orbit-navbar)](./LICENSE)
+[![license](https://img.shields.io/github/license/GauravSingh0001/orbit-navbar)](./LICENSE)
 [![react peer](https://img.shields.io/npm/dependency-version/@gskit/orbit-navbar/peer/react)](https://react.dev)
 
 ---
 
 ## Features
 
-- **Split-arc pods** — SVG concave-cap geometry that perfectly cradles the logo circle
--  **Liquid glass** — `backdrop-filter` frost with a sheen gradient overlay
-- **Spring animations** — pods emerge with a satisfying overshoot; retract with a blur fade
-- **Palette system** — 6 built-in themes + fully custom `palette` prop
-- **Accessible** — semantic `<nav>`, `aria-label`, `focus-visible` rings, `prefers-reduced-motion`
-- **Responsive** — tightens automatically on screens ≤ 640 px
-- **Dark mode** — automatic via `prefers-color-scheme` when no palette is set
-- **TypeScript-ready** — ships full `.d.ts` declarations
+- 🌀 **Split-arc pods** — SVG concave-cap geometry that perfectly cradles the logo circle
+- 🍎 **Liquid glass** — `backdrop-filter` frost with a sheen gradient overlay
+- 🌿 **Spring animations** — pods emerge with a satisfying overshoot; retract with a blur fade
+- 🎨 **Palette system** — 6 built-in themes + fully custom `palette` prop (defaults to `OceanTeal`)
+- ♿ **Accessible** — semantic `<nav>`, `aria-label`, `focus-visible` rings, `prefers-reduced-motion`
+- 📱 **Responsive** — tightens automatically on screens ≤ 640 px
+- 🌙 **Dark mode** — automatic via `prefers-color-scheme` when no palette is set
+- 🔷 **TypeScript-ready** — ships full `.d.ts` declarations
 
 ---
 
@@ -65,7 +65,7 @@ export default function App() {
 | `leftLinks` | `NavLink[]` | see below | Links for the left pod. |
 | `rightLinks` | `NavLink[]` | see below | Links for the right pod. |
 | `scrollThreshold` | `number` | `50` | Scroll distance (px) before pods retract. |
-| `palette` | `PalettePreset \| OrbitPalette \| null` | `null` | Colour palette preset name (e.g. `'duskRose'`), preset object, or custom palette. |
+| `palette` | `PalettePreset \| OrbitPalette \| null` | `'OceanTeal'` | Colour palette preset name (e.g. `'DuskRose'`), preset object, or custom palette. |
 | `rotateOnScroll` | `boolean` | `true` | Whether the logo rotates 360° on scroll retraction. |
 | `className` | `string` | `''` | Optional extra CSS classes for the container. |
 | `style` | `CSSProperties` | `undefined` | Optional inline styles merged with palette variables. |
@@ -172,10 +172,11 @@ import { OrbitNavbar, ArcticSky } from '@gskit/orbit-navbar';
 
 ```jsx
 import { Rocket } from 'lucide-react';
+import { OrbitNavbar, MidnightViolet } from '@gskit/orbit-navbar';
 
 <OrbitNavbar
   logoContent={<Rocket size={24} />}
-  palette={PALETTES.midnightViolet}
+  palette={MidnightViolet}
 />
 ```
 
@@ -194,7 +195,7 @@ import { Rocket } from 'lucide-react';
 />
 ```
 
-### Lazy retract (retract later on scroll)
+### Custom scroll threshold
 
 ```jsx
 <OrbitNavbar scrollThreshold={120} />
@@ -204,17 +205,18 @@ import { Rocket } from 'lucide-react';
 
 ## TypeScript
 
-The package ships a full `.d.ts` declaration file. You get prop autocomplete and type-checking out of the box — no `@types/` package needed.
+The package ships a full `.d.ts` declaration file with complete autocomplete:
 
 ```ts
-import { OrbitNavbar, PALETTES, OrbitPalette, NavLink } from 'orbit-navbar';
+import { OrbitNavbar, PALETTES, OceanTeal } from '@gskit/orbit-navbar';
+import type { OrbitPalette, NavLink, OrbitNavbarProps } from '@gskit/orbit-navbar';
 ```
 
 ---
 
 ## CSS custom properties reference
 
-You can also style the navbar directly with CSS variables if you don't use the `palette` prop:
+You can also style the navbar directly with CSS variables:
 
 ```css
 :root {
@@ -242,21 +244,15 @@ You can also style the navbar directly with CSS variables if you don't use the `
 ## Building from source
 
 ```bash
-# Dev preview (hot-reload)
+# Dev preview
 npm run dev
 
 # Library bundle (ESM + UMD + CSS + .d.ts)
 npm run build:lib
-
-# Output → dist/
-#   orbit-navbar.js        ESM bundle
-#   orbit-navbar.umd.cjs   UMD bundle (for CommonJS consumers)
-#   orbit-navbar.css        Styles
-#   index.d.ts             TypeScript declarations
 ```
 
 ---
 
 ## License
 
-MIT © orbit-navbar contributors
+MIT © [Gaurav Singh](https://github.com/GauravSingh0001)
